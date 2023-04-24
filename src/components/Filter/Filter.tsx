@@ -1,8 +1,6 @@
 import { today } from "../../constants/data-placeholder";
-import React, { KeyboardEvent, useCallback, useEffect, useState } from "react";
+import React, { KeyboardEvent, useEffect, useState } from "react";
 import {
-  FilterButton,
-  FilterButtonWrapper,
   FilterWrapper,
   InputFilter,
   InputFilterWrapper,
@@ -22,12 +20,12 @@ import { Terminal } from "types/data";
 import useDebounce from "../../hooks/useDebounce";
 import Select from "../../components/Select/Select";
 import SearchSuggestion from "../../components/SearchSuggestion/SearchSuggestion";
+import SearchButtons from "./SearchButtons";
 
 const Filter = () => {
   const dispatch = useDispatch();
   const boardFilters = useSelector(currentBoardFilters);
 
-  const [searchValue, setSearchValue] = useState<string>("");
   const [selectDateValue, setSelectDatevalue] = useState<string>(today);
   const [selectTimeValue, setSelectTimeValue] = useState<string>("");
   const [selectTerminalValue, setSelectTerminalValue] =
@@ -39,9 +37,9 @@ const Filter = () => {
   const [isSuggestionVisible, setIsSuggestionVisible] =
     useState<boolean>(false);
 
-  const debounceSearch = useDebounce<string>(searchValue, 500);
+  const debounceSearch = useDebounce<string>(boardFilters.query, 500);
 
-  const dispatchFilters = useCallback(() => {
+  useEffect(() => {
     dispatch(
       changeBoardFilters({
         query: debounceSearch.toLowerCase(),
@@ -60,15 +58,16 @@ const Filter = () => {
     selectTimeValue,
   ]);
 
-  useEffect(() => {
-    dispatchFilters();
-  }, [dispatchFilters]);
-
   const handleSearchInputChange = (
     e: React.SyntheticEvent<HTMLInputElement>
   ) => {
     const querySearchValue = e.currentTarget.value;
-    setSearchValue(querySearchValue);
+    dispatch(
+      changeBoardFilters({
+        ...boardFilters,
+        query: querySearchValue,
+      })
+    );
     setIsSuggestionVisible(!!querySearchValue);
   };
 
@@ -89,24 +88,10 @@ const Filter = () => {
     setSelectTerminalValue(selectedTerminal);
   };
 
-  const handleCancelSearch = () => {
-    setSearchValue("");
-    dispatch(
-      changeBoardFilters({
-        ...boardFilters,
-        query: "",
-      })
-    );
-  };
-
-  const handleApplySerch = () => {
-    dispatch(applySearchFilters());
-  };
-
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       setIsSuggestionVisible(false);
-      handleApplySerch();
+      dispatch(applySearchFilters());
     }
   };
 
@@ -117,7 +102,7 @@ const Filter = () => {
         <InputFilter
           type="text"
           onKeyDown={handleKeyDown}
-          value={searchValue}
+          value={boardFilters.query}
           onFocus={() => setIsSearchButtonVisible(true)}
           onBlur={() => setIsSearchButtonVisible(false)}
           onChange={handleSearchInputChange}
@@ -151,10 +136,7 @@ const Filter = () => {
         ></Select>
       </SelectWrapper>
 
-      <FilterButtonWrapper isVisible={isSearchButtonVisible}>
-        <FilterButton onClick={handleCancelSearch}>Отменить</FilterButton>
-        <FilterButton onClick={handleApplySerch}>Искать</FilterButton>
-      </FilterButtonWrapper>
+      <SearchButtons isVisible={isSearchButtonVisible}></SearchButtons>
 
       {isSuggestionVisible && (
         <SearchSuggestion setIsOpen={setIsSuggestionVisible}></SearchSuggestion>
