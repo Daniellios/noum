@@ -29,4 +29,4 @@ export type Direction = "arrival" | "departure";
 
 export type Terminal = "A" | "B" | "C" | "D" | "E" | "F" | "ALL";
 
-export type FligtStatus = "CANCELLED" | "ARRIVED" | "FLYING";
+export type FligtStatus = "CANCELLED" | "ARRIVED" | "FLYING" | "BOARDING";

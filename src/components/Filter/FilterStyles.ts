@@ -79,9 +79,6 @@ export const FilterButtonWrapper = styled.div<VisibilityProps>`
 `;
 
 export const FilterButton = styled.button`
-  font-size: 1rem;
-  border: 1px solid transparent;
-  outline: none;
   background-color: transparent;
   font-weight: inherit;
 
