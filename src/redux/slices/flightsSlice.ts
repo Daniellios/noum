@@ -17,32 +17,35 @@ export const flightSlice = createSlice({
   initialState,
   reducers: {
     applyFilters: (state) => {
-      const checkIfTerminalValue = (flight: IFlight) => {
-        if (state.filters.selected_terminal === "ALL") {
+      let filteredFlights = [];
+
+      const { selected_date, selected_terminal, selected_time_range } =
+        state.filters;
+
+      const checkIfMathesTerminalValue = (flight: IFlight) => {
+        if (selected_terminal === "ALL") {
           return flight.terminal !== "ALL";
         } else {
-          return flight.terminal === state.filters.selected_terminal;
+          return flight.terminal === selected_terminal;
         }
       };
 
       const checkIfMathesTimeSpanValue = (flight: IFlight) => {
-        if (state.filters.selected_time_range.length === 1) return true;
+        if (selected_time_range.length === 1) return true;
         else {
-          return state.filters.selected_time_range.includes(
-            convertHourFormat(flight.time)
-          );
+          return selected_time_range.includes(convertHourFormat(flight.time));
         }
       };
 
       const checkIfMathcesDateValue = (flight: IFlight) => {
-        if (flight.date === state.filters.selected_date) return true;
+        if (flight.date === selected_date) return true;
         else {
           return false;
         }
       };
 
-      state.flights = initialState.flights.filter((flight) => {
-        const mathesTerminalValue = checkIfTerminalValue(flight);
+      filteredFlights = initialState.flights.filter((flight) => {
+        const mathesTerminalValue = checkIfMathesTerminalValue(flight);
 
         const mathesTimeSpanValue = checkIfMathesTimeSpanValue(flight);
 
@@ -52,14 +55,23 @@ export const flightSlice = createSlice({
           return flight;
         }
       });
+
+      state.flights = filteredFlights;
+      state.suggested_flights = filteredFlights;
+    },
+    applySearchFilters: (state) => {
+      state.flights = state.suggested_flights;
     },
     filterBySearch: (state) => {
-      state.flights = state.flights.filter(
+      let filteredFlights = [];
+
+      filteredFlights = state.flights.filter(
         (flight) =>
           flight.city.toLowerCase().includes(state.filters.query) ||
           flight.company.toLowerCase().includes(state.filters.query) ||
           flight.flight_number.toLowerCase().includes(state.filters.query)
       );
+      state.suggested_flights = filteredFlights;
     },
     filterById: (state, action: PayloadAction<string>) => {
       state.flights = state.flights.filter(
@@ -70,7 +82,6 @@ export const flightSlice = createSlice({
       state.board_type = action.payload;
     },
     changeBoardFilters: (state, action: PayloadAction<IFlightBoardFilters>) => {
-      console.log("FILTERS", action.payload);
       state.filters = { ...state.filters, ...action.payload };
     },
   },
@@ -81,12 +92,18 @@ export const {
   applyFilters,
   filterById,
   changeBoardType,
+  applySearchFilters,
   changeBoardFilters,
   filterBySearch,
 } = flightSlice.actions;
 
 export const selectDisplayedFlights = (state: RootState) =>
   state.flightBoard.flights.filter(
+    (flight) => flight.direction === state.flightBoard.board_type
+  );
+
+export const selectSuggestedFlights = (state: RootState) =>
+  state.flightBoard.suggested_flights.filter(
     (flight) => flight.direction === state.flightBoard.board_type
   );
 

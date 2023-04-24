@@ -15,7 +15,7 @@ const Navbar = () => {
 
   useEffect(() => {
     dispatch(changeBoardType(direction));
-  }, [direction]);
+  }, [direction, dispatch]);
 
   return (
     <LinkWrapper>

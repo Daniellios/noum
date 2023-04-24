@@ -174,6 +174,7 @@ export const flightsList: IFlight[] = [
 
 export const flightBoard: IFlightBoard = {
   flights: flightsList,
+  suggested_flights: [],
   board_type: "departure",
   filters: {
     query: "",

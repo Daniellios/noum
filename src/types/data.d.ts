@@ -1,5 +1,6 @@
 export interface IFlightBoard {
   flights: IFlight[];
+  suggested_flights: IFlight[];
   board_type: Direction;
   filters: IFlightBoardFilters;
 }

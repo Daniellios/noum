@@ -6,6 +6,7 @@ import {
   currentBoardFilters,
   filterById,
   selectDisplayedFlights,
+  selectSuggestedFlights,
 } from "../../redux/slices/flightsSlice";
 import {
   SuggestionBox,
@@ -21,7 +22,7 @@ const SearchSuggestion: React.FC<SearchSuggestionProps> = ({ setIsOpen }) => {
   const suggestBoxRef = useRef(null);
   const dispatch = useDispatch();
 
-  const flights = useSelector(selectDisplayedFlights);
+  const suggestedFlights = useSelector(selectSuggestedFlights);
   const boardFilters = useSelector(currentBoardFilters);
 
   const suggestedValue = (value: string) => {
@@ -49,7 +50,7 @@ const SearchSuggestion: React.FC<SearchSuggestionProps> = ({ setIsOpen }) => {
   return (
     <SuggestionBoxWrapper ref={suggestBoxRef}>
       <SuggestionBox>
-        {flights.map((flight) => (
+        {suggestedFlights.map((flight) => (
           <SuggestionBoxRow
             key={flight.id + "sg"}
             onClick={() => selectSuggestedValue(flight.id)}

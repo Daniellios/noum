@@ -5,8 +5,6 @@ import Navbar from "../components/Navbar/Navbar";
 const Arrival = () => {
   return (
     <>
-      <Navbar></Navbar>
-      <Filter></Filter>
       <FlightsTable></FlightsTable>
     </>
   );

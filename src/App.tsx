@@ -1,14 +1,17 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Departure from "./pages/Departure";
 import Arrival from "./pages/Arrival";
-import GlobalStyle from "./styles/globalStyles";
 import Flight from "./pages/Flight";
 import Error from "./pages/Error";
+import Filter from "./components/Filter/Filter";
+import Navbar from "./components/Navbar/Navbar";
 
 const App: React.FC = () => {
   return (
     <BrowserRouter>
-      <GlobalStyle />
+      <Navbar></Navbar>
+      <Filter></Filter>
+
       <Routes>
         <Route index element={<Navigate to="/departure" />} />
         <Route path={"/arrival"} element={<Arrival />} />
