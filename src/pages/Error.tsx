@@ -1,6 +1,6 @@
 import React from "react";
 
-const Error = () => {
+const Error: React.FC = () => {
   return <h1>Ошибка, такой страницы не существует</h1>;
 };
 

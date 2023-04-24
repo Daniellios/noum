@@ -1,14 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+
+import { flightBoard } from "../../constants/data-placeholder";
+import { convertHourFormat } from "../../helpers/convertToHourFormat";
+import dayjs from "../../utils/dayjs.config";
+import { RootState } from "../store";
 import {
   Direction,
   IFlight,
   IFlightBoard,
   IFlightBoardFilters,
 } from "types/data";
-import { flightBoard } from "../../constants/data-placeholder";
-import { RootState } from "redux/store";
-import { convertHourFormat } from "../../helpers/convertToHourFormat";
 
 const initialState: IFlightBoard = flightBoard;
 
@@ -69,9 +71,15 @@ export const flightSlice = createSlice({
 
       filteredFlights = state.flights.filter(
         (flight) =>
-          flight.city.toLowerCase().includes(state.filters.query) ||
-          flight.company.toLowerCase().includes(state.filters.query) ||
-          flight.flight_number.toLowerCase().includes(state.filters.query)
+          flight.city
+            .toLowerCase()
+            .includes(state.filters.query.toLowerCase()) ||
+          flight.company
+            .toLowerCase()
+            .includes(state.filters.query.toLowerCase()) ||
+          flight.flight_number
+            .toLowerCase()
+            .includes(state.filters.query.toLowerCase())
       );
       state.suggested_flights = filteredFlights;
     },
@@ -100,9 +108,9 @@ export const {
 } = flightSlice.actions;
 
 export const selectDisplayedFlights = (state: RootState) =>
-  state.flightBoard.flights.filter(
-    (flight) => flight.direction === state.flightBoard.board_type
-  );
+  state.flightBoard.flights
+    .filter((flight) => flight.direction === state.flightBoard.board_type)
+    .sort((a, b) => +dayjs(a.time) - +dayjs(b.time));
 
 export const selectSuggestedFlights = (state: RootState) =>
   state.flightBoard.suggested_flights.filter(

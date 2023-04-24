@@ -42,7 +42,7 @@ const Filter = () => {
   useEffect(() => {
     dispatch(
       changeBoardFilters({
-        query: debounceSearch.toLowerCase(),
+        query: debounceSearch,
         selected_date: selectDateValue,
         selected_terminal: selectTerminalValue,
         selected_time_range: selectTimeValue,
@@ -112,7 +112,7 @@ const Filter = () => {
 
       <SelectWrapper isVisible={!isSearchButtonVisible}>
         <Select
-          value={selectDateValue}
+          value={boardFilters.selected_date}
           name="date"
           id="date"
           isDefaultValue={false}
@@ -120,7 +120,7 @@ const Filter = () => {
         ></Select>
 
         <Select
-          value={selectTimeValue}
+          value={boardFilters.selected_time_range}
           name="timeSpan"
           isDefaultValue={selectTimeValue === "" ? true : false}
           id="time"
@@ -128,7 +128,7 @@ const Filter = () => {
         ></Select>
 
         <Select
-          value={selectTerminalValue}
+          value={boardFilters.selected_terminal}
           isDefaultValue={selectTerminalValue === "ALL" ? true : false}
           name="terminal"
           id="terminal"

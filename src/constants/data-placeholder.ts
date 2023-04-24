@@ -28,6 +28,30 @@ export const flightsList: IFlight[] = [
   },
   {
     id: nanoid(),
+    date: today,
+    city: "Джакарта",
+    direction: "arrival",
+    time: 10,
+    flight_number: "BN 52",
+    company: "Marine Air",
+    flight_status: "ARRIVED",
+    gate: "C 242",
+    terminal: "A",
+  },
+  {
+    id: nanoid(),
+    date: today,
+    city: "Берлин",
+    direction: "arrival",
+    time: 9,
+    flight_number: "PP 024",
+    company: "RT 5",
+    flight_status: "CANCELLED",
+    gate: "C 242",
+    terminal: "A",
+  },
+  {
+    id: nanoid(),
     date: yesterday,
     city: "Казань",
     direction: "arrival",
@@ -59,7 +83,7 @@ export const flightsList: IFlight[] = [
     flight_number: "TW 213",
     company: "Аэрофлот",
     flight_status: "ARRIVED",
-    gate: "C 242",
+    gate: "RS 229",
     terminal: "C",
   },
   {
@@ -83,7 +107,7 @@ export const flightsList: IFlight[] = [
     flight_number: "TW 213",
     company: "Аэрофлот",
     flight_status: "CANCELLED",
-    gate: "C 242",
+    gate: "X 242",
     terminal: "B",
   },
   {
@@ -179,7 +203,7 @@ export const flightBoard: IFlightBoard = {
   filters: {
     query: "",
     selected_date: today,
-    selected_time_range: [""],
+    selected_time_range: "",
     selected_terminal: "ALL",
   },
 };

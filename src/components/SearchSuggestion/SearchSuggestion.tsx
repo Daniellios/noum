@@ -5,7 +5,6 @@ import {
   changeBoardFilters,
   currentBoardFilters,
   filterById,
-  selectDisplayedFlights,
   selectSuggestedFlights,
 } from "../../redux/slices/flightsSlice";
 import {
