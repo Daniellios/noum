@@ -12,7 +12,6 @@ import { ITimeSelectorValues } from "../../helpers/populateDayHours";
 
 const SelectNextTimeSpan = () => {
   const dispatch = useDispatch();
-
   const boardFilters = useSelector(currentBoardFilters);
 
   const [nextTimeSpan, setNextTimeSpan] = useState<ITimeSelectorValues>({
