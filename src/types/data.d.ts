@@ -8,7 +8,7 @@ export interface IFlightBoard {
 export interface IFlightBoardFilters {
   query: string;
   selected_date: string;
-  selected_time_range: string[];
+  selected_time_range: string;
   selected_terminal: Terminal;
 }
 

@@ -13,6 +13,8 @@ import {
   FlightSubInfo,
   FlightTable,
   FlightTime,
+  FlightTerminal,
+  FlightGate,
 } from "./FlightsTableStyles";
 import { BsFillAirplaneFill } from "react-icons/bs";
 import { convertHourFormat } from "../../helpers/convertToHourFormat";
@@ -45,16 +47,16 @@ const FlightsTable: React.FC = () => {
                   style={{ fontSize: "14px" }}
                 ></BsFillAirplaneFill>
 
-                {flight.flight_number}
+                <p>{flight.flight_number}</p>
               </FlightNumber>
 
-              <div>
+              <FlightTerminal>
                 <p>{flight.terminal}</p>
-              </div>
+              </FlightTerminal>
 
-              <div>
+              <FlightGate>
                 <p>{flight.gate}</p>
-              </div>
+              </FlightGate>
 
               <FlightStatus>{flight.flight_status}</FlightStatus>
 

@@ -29,9 +29,7 @@ const Filter = () => {
 
   const [searchValue, setSearchValue] = useState<string>("");
   const [selectDateValue, setSelectDatevalue] = useState<string>(today);
-  const [selectTimeValue, setSelectTimeValue] = useState<string | string[]>([
-    "",
-  ]);
+  const [selectTimeValue, setSelectTimeValue] = useState<string>("");
   const [selectTerminalValue, setSelectTerminalValue] =
     useState<Terminal>("ALL");
 
@@ -49,7 +47,7 @@ const Filter = () => {
         query: debounceSearch.toLowerCase(),
         selected_date: selectDateValue,
         selected_terminal: selectTerminalValue,
-        selected_time_range: [...selectTimeValue],
+        selected_time_range: selectTimeValue,
       })
     );
     dispatch(applyFilters());
@@ -80,7 +78,7 @@ const Filter = () => {
   };
 
   const handleSelectTimeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedRange = e.currentTarget.value.split(",");
+    const selectedRange = e.currentTarget.value;
     setSelectTimeValue(selectedRange);
   };
 

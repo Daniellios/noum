@@ -39,11 +39,10 @@ export const FlightMainInfo = styled.div`
 `;
 
 export const FlightSubInfo = styled.div`
-  width: 40%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   align-items: center;
-  gap: 2rem;
+  gap: 1rem;
   font-weight: 600;
 `;
 
@@ -53,15 +52,31 @@ export const FlightTime = styled.span`
   margin-right: 4rem;
 `;
 
+export const FlightTerminal = styled.div`
+  width: 40px;
+  min-width: 40px;
+`;
+
 export const FlightNumber = styled.div`
   display: flex;
   align-items: center;
-  min-width: 100px;
+  justify-content: flex-start;
+  min-width: 120px;
   gap: 1rem;
+  width: 120px;
+`;
+
+export const FlightGate = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 120px;
+  width: 120px;
 `;
 
 export const FlightStatus = styled.p`
   font-weight: 600;
+  text-align: center;
   margin-right: 2rem;
 `;
 

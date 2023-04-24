@@ -31,9 +31,11 @@ export const flightSlice = createSlice({
       };
 
       const checkIfMathesTimeSpanValue = (flight: IFlight) => {
-        if (selected_time_range.length === 1) return true;
+        if (selected_time_range === "") return true;
         else {
-          return selected_time_range.includes(convertHourFormat(flight.time));
+          return selected_time_range
+            .split(",")
+            .includes(convertHourFormat(flight.time));
         }
       };
 
