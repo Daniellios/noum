@@ -7,12 +7,17 @@ interface VisibilityProps {
 export const FilterWrapper = styled.div`
   display: flex;
   position: relative;
-  flex-direction: row;
+  flex-direction: column;
+  gap: 2rem;
   width: 100%;
   justify-content: space-between;
   padding: 0.5rem 0;
   border-bottom: 2px solid black;
   margin-bottom: 2rem;
+
+  @media (min-width: 926px) {
+    flex-direction: row;
+  }
 `;
 
 export const SelectWrapper = styled.div<VisibilityProps>`
@@ -20,7 +25,12 @@ export const SelectWrapper = styled.div<VisibilityProps>`
   opacity: ${(props) => (props.isVisible ? 1 : 0)};
   transition: all 0.1s linear;
   flex-direction: row;
+  justify-content: space-between;
   gap: 2rem;
+
+  @media (min-width: 926px) {
+    flex-direction: row;
+  }
 `;
 
 export const InputFilterWrapper = styled.div`

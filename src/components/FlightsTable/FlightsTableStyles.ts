@@ -7,12 +7,13 @@ export const FlightTable = styled.div`
 
 export const FlightRow = styled.div`
   display: flex;
-  align-items: center;
-  flex-direction: row;
+  align-items: flex-start;
+  flex-direction: column;
+
   width: 100%;
-  justify-content: space-between;
   height: 100%;
   padding: 2rem 1rem;
+  gap: 1rem;
   border: 1px solid transparent;
   border-bottom: 0.5px solid black;
   transition: all 0.2s linear;
@@ -29,13 +30,24 @@ export const FlightRow = styled.div`
   &:hover:first-child {
     border: 1px solid black;
   }
+
+  @media (min-width: 926px) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
 `;
 
 export const FlightMainInfo = styled.div`
   display: flex;
+  width: 100%;
   align-items: center;
   justify-content: flex-start;
-  text-align: left;
+  text-align: center;
+
+  @media (min-width: 926px) {
+    width: auto;
+  }
 `;
 
 export const FlightSubInfo = styled.div`
@@ -43,7 +55,14 @@ export const FlightSubInfo = styled.div`
   justify-content: flex-start;
   align-items: center;
   gap: 1rem;
+  width: 100%;
   font-weight: 600;
+
+  @media (min-width: 926px) {
+    width: auto;
+    margin-left: auto;
+    justify-content: flex-end;
+  }
 `;
 
 export const FlightTime = styled.span`
@@ -77,6 +96,7 @@ export const FlightGate = styled.div`
 export const FlightStatus = styled.p`
   font-weight: 600;
   text-align: center;
+  width: 100px;
   margin-right: 2rem;
 `;
 

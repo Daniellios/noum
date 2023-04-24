@@ -137,7 +137,7 @@ const Filter = () => {
         <Select
           value={selectTimeValue}
           name="timeSpan"
-          isDefaultValue={selectTimeValue[0] === "" ? true : false}
+          isDefaultValue={selectTimeValue === "" ? true : false}
           id="time"
           onChangeHandle={handleSelectTimeChange}
         ></Select>
