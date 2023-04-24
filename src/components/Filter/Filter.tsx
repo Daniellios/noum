@@ -27,7 +27,6 @@ const Filter = () => {
   const boardFilters = useSelector(currentBoardFilters);
 
   const [selectDateValue, setSelectDatevalue] = useState<string>(today);
-  const [selectTimeValue, setSelectTimeValue] = useState<string>("");
   const [selectTerminalValue, setSelectTerminalValue] =
     useState<Terminal>("ALL");
 
@@ -45,17 +44,17 @@ const Filter = () => {
         query: debounceSearch,
         selected_date: selectDateValue,
         selected_terminal: selectTerminalValue,
-        selected_time_range: selectTimeValue,
+        selected_time_range: boardFilters.selected_time_range,
       })
     );
     dispatch(applyFilters());
     dispatch(filterBySearch());
   }, [
+    boardFilters.selected_time_range,
     debounceSearch,
     dispatch,
     selectDateValue,
     selectTerminalValue,
-    selectTimeValue,
   ]);
 
   const handleSearchInputChange = (
@@ -78,7 +77,12 @@ const Filter = () => {
 
   const handleSelectTimeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedRange = e.currentTarget.value;
-    setSelectTimeValue(selectedRange);
+    dispatch(
+      changeBoardFilters({
+        ...boardFilters,
+        selected_time_range: selectedRange,
+      })
+    );
   };
 
   const handleSelectTerminalChange = (
@@ -122,7 +126,9 @@ const Filter = () => {
         <Select
           value={boardFilters.selected_time_range}
           name="timeSpan"
-          isDefaultValue={selectTimeValue === "" ? true : false}
+          isDefaultValue={
+            boardFilters.selected_time_range === "" ? true : false
+          }
           id="time"
           onChangeHandle={handleSelectTimeChange}
         ></Select>

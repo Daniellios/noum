@@ -20,6 +20,7 @@ import { BsFillAirplaneFill } from "react-icons/bs";
 import { convertHourFormat } from "../../helpers/convertToHourFormat";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
+import SelectNextTimeSpan from "../../components/Select/SelectNextTimeSpan";
 
 const FlightsTable: React.FC = () => {
   const flights = useSelector(selectDisplayedFlights);
@@ -67,6 +68,8 @@ const FlightsTable: React.FC = () => {
       ) : (
         <h1>По вашему запросу ничего не найдено.</h1>
       )}
+
+      <SelectNextTimeSpan></SelectNextTimeSpan>
     </FlightTable>
   );
 };
