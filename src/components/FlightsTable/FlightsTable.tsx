@@ -22,6 +22,15 @@ import { AiOutlineArrowRight } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import SelectNextTimeSpan from "../../components/Select/SelectNextTimeSpan";
 
+// How to improve
+
+// Значительное
+// 1. Чтобы она не мигала, нужно либо сделать ее общей для всех путей
+// 2. Либо попробовать useLayoutEffect* ?
+
+// Побочное
+// 1. Подкорректировать отображение изменения кнопки
+
 const FlightsTable: React.FC = () => {
   const flights = useSelector(selectDisplayedFlights);
 
@@ -69,7 +78,7 @@ const FlightsTable: React.FC = () => {
         <h1>По вашему запросу ничего не найдено.</h1>
       )}
 
-      <SelectNextTimeSpan></SelectNextTimeSpan>
+      <SelectNextTimeSpan />
     </FlightTable>
   );
 };

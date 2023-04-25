@@ -14,6 +14,23 @@ interface ISelectProps<V> {
   onChangeHandle: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
+// How to improve
+
+// ЗНАЧИТЕЛЬНОЕ
+
+// 1. Создать Union или Enum для вида Select'a
+// enum SelectType {
+// name === "timeSpan";
+//  name === "date";
+//  name === "terminal";
+// }
+
+// 2. Убрать из пропсов функию изменения и текущее значение и брать их из глобального состояния
+
+// ПОБОЧНОЕ
+
+// 1. Убрать все оставшееся из пропсов и опираясь на тип Select'a устанавливать значения из глобального состояния
+
 const Select = <V extends string | string[]>({
   value,
   name,

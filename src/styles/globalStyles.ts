@@ -1,14 +1,14 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
-* {
+  * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
   }
 
 
-:root {
+  :root {
     font-family: 'Roboto', sans-serif;
     line-height: 1.5;
     font-weight: 400;
@@ -21,7 +21,7 @@ const GlobalStyle = createGlobalStyle`
     -webkit-text-size-adjust: 100%;
   }
 
-#root {
+  #root {
     max-width: 1980px;
     margin: 0 auto;
     padding: 2rem;
@@ -37,10 +37,8 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
-  body {
-    margin: 0;
-    padding: 0;
-  }
+  //Убрал дублирующие стили в тэге body
+
 `;
 
 export default GlobalStyle;

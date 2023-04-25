@@ -22,13 +22,22 @@ import Select from "../../components/Select/Select";
 import SearchSuggestion from "../../components/SearchSuggestion/SearchSuggestion";
 import SearchButtons from "./SearchButtons";
 
-const Filter = () => {
+// How to improve
+
+// Значительное
+// 1. Убрать useState по управлению фильтрами у правлять состоянием через глобальный фильтр Redux
+// 2. Создать отдельный компонент со всеми Select'ami и перенести туда все изменения значения Selecto'v
+
+// Побочное
+// 1. Отрефакторить isDefault, убрать тернарники
+
+const Filter: React.FC = () => {
   const dispatch = useDispatch();
   const boardFilters = useSelector(currentBoardFilters);
 
-  const [selectDateValue, setSelectDatevalue] = useState<string>(today);
-  const [selectTerminalValue, setSelectTerminalValue] =
-    useState<Terminal>("ALL");
+  // const [selectDateValue, setSelectDatevalue] = useState<string>(today);
+  // const [selectTerminalValue, setSelectTerminalValue] =
+  //   useState<Terminal>("ALL");
 
   const [isSearchButtonVisible, setIsSearchButtonVisible] =
     useState<boolean>(false);
@@ -40,21 +49,26 @@ const Filter = () => {
 
   useEffect(() => {
     dispatch(
-      changeBoardFilters({
-        query: debounceSearch,
-        selected_date: selectDateValue,
-        selected_terminal: selectTerminalValue,
-        selected_time_range: boardFilters.selected_time_range,
-      })
+      changeBoardFilters(
+        {
+          query: debounceSearch,
+          selected_date: boardFilters.selected_date,
+          selected_terminal: boardFilters.selected_terminal,
+          selected_time_range: boardFilters.selected_time_range,
+        }
+        // { ...boardFilters }
+      )
     );
     dispatch(applyFilters());
     dispatch(filterBySearch());
   }, [
     boardFilters.selected_time_range,
+    boardFilters.selected_terminal,
+    boardFilters.selected_date,
     debounceSearch,
     dispatch,
-    selectDateValue,
-    selectTerminalValue,
+    // selectDateValue,
+    // selectTerminalValue,
   ]);
 
   const handleSearchInputChange = (
@@ -72,7 +86,13 @@ const Filter = () => {
 
   const handleSelectDateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedDateValue = e.currentTarget.value;
-    setSelectDatevalue(selectedDateValue);
+    // setSelectDatevalue(selectedDateValue);
+    dispatch(
+      changeBoardFilters({
+        ...boardFilters,
+        selected_date: selectedDateValue,
+      })
+    );
   };
 
   const handleSelectTimeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -89,7 +109,13 @@ const Filter = () => {
     e: React.ChangeEvent<HTMLSelectElement>
   ) => {
     const selectedTerminal = e.currentTarget.value as Terminal;
-    setSelectTerminalValue(selectedTerminal);
+    // setSelectTerminalValue(selectedTerminal);
+    dispatch(
+      changeBoardFilters({
+        ...boardFilters,
+        selected_terminal: selectedTerminal,
+      })
+    );
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -127,7 +153,8 @@ const Filter = () => {
           value={boardFilters.selected_time_range}
           name="timeSpan"
           isDefaultValue={
-            boardFilters.selected_time_range === "" ? true : false
+            // boardFilters.selected_time_range === "" ? true : false
+            boardFilters.selected_time_range === ""
           }
           id="time"
           onChangeHandle={handleSelectTimeChange}
@@ -135,7 +162,10 @@ const Filter = () => {
 
         <Select
           value={boardFilters.selected_terminal}
-          isDefaultValue={selectTerminalValue === "ALL" ? true : false}
+          isDefaultValue={
+            //boardFilters.selected_terminal === "ALL" ? true : false
+            boardFilters.selected_terminal === "ALL"
+          }
           name="terminal"
           id="terminal"
           onChangeHandle={handleSelectTerminalChange}

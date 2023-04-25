@@ -13,6 +13,15 @@ import {
   SuggestionBoxWrapper,
 } from "./SearchSuggestionStyles";
 
+// How to improve
+
+// Значительное
+// 1. Изменить способ подставления рекомендованных значений
+// 2. Продумать алгоритм подстановки в значение поиска
+
+// Побочное
+// 1. Можно добавить состояние видимости в отдельный Slice исключительно для UI
+
 interface SearchSuggestionProps {
   setIsOpen: (value: boolean) => void;
 }

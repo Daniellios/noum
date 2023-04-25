@@ -5,13 +5,12 @@ import { Direction } from "types/data";
 import { LinkWrapper, PageLink } from "./NavbarStyles";
 import { useEffect } from "react";
 
-const Navbar = () => {
+const Navbar: React.FC = () => {
   const location = useLocation();
+  const dispatch = useDispatch();
 
   const direction: Direction =
     location.pathname === "/departure" ? "departure" : "arrival";
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(changeBoardType(direction));

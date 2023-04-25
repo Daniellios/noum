@@ -10,7 +10,15 @@ import {
 import { SelectNextTimeSpanButton } from "./SelectStyles";
 import { ITimeSelectorValues } from "../../helpers/populateDayHours";
 
-const SelectNextTimeSpan = () => {
+// How to improve
+
+// Значительное
+// 1. Переосмыслить установку отрезка времени, привести к одному типу
+
+// Побочное
+// 1.
+
+const SelectNextTimeSpan: React.FC = () => {
   const dispatch = useDispatch();
   const boardFilters = useSelector(currentBoardFilters);
 
