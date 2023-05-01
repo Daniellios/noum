@@ -7,7 +7,7 @@ function useOnClickOutside<T extends HTMLElement = HTMLElement>(
   ref: RefObject<T>,
   handler: (event: Handler) => void
 ): void {
-  console.log("RER");
+  console.log("FSFF");
 
   useEffect(() => {
     const listener = (event: Handler) => {

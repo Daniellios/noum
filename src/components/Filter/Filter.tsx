@@ -25,11 +25,7 @@ import SearchButtons from "./SearchButtons";
 // How to improve
 
 // Значительное
-// 1. Убрать useState по управлению фильтрами у правлять состоянием через глобальный фильтр Redux
-// 2. Создать отдельный компонент со всеми Select'ami и перенести туда все изменения значения Selecto'v
-
-// Побочное
-// 1. Отрефакторить isDefault, убрать тернарники
+// 1. Создать отдельный компонент со всеми Select'ami и перенести туда все изменения значения Selecto'v
 
 const Filter: React.FC = () => {
   const dispatch = useDispatch();
@@ -49,15 +45,12 @@ const Filter: React.FC = () => {
 
   useEffect(() => {
     dispatch(
-      changeBoardFilters(
-        {
-          query: debounceSearch,
-          selected_date: boardFilters.selected_date,
-          selected_terminal: boardFilters.selected_terminal,
-          selected_time_range: boardFilters.selected_time_range,
-        }
-        // { ...boardFilters }
-      )
+      changeBoardFilters({
+        query: debounceSearch,
+        selected_date: boardFilters.selected_date,
+        selected_terminal: boardFilters.selected_terminal,
+        selected_time_range: boardFilters.selected_time_range,
+      })
     );
     dispatch(applyFilters());
     dispatch(filterBySearch());
@@ -152,20 +145,14 @@ const Filter: React.FC = () => {
         <Select
           value={boardFilters.selected_time_range}
           name="timeSpan"
-          isDefaultValue={
-            // boardFilters.selected_time_range === "" ? true : false
-            boardFilters.selected_time_range === ""
-          }
+          isDefaultValue={boardFilters.selected_time_range === ""}
           id="time"
           onChangeHandle={handleSelectTimeChange}
         ></Select>
 
         <Select
           value={boardFilters.selected_terminal}
-          isDefaultValue={
-            //boardFilters.selected_terminal === "ALL" ? true : false
-            boardFilters.selected_terminal === "ALL"
-          }
+          isDefaultValue={boardFilters.selected_terminal === "ALL"}
           name="terminal"
           id="terminal"
           onChangeHandle={handleSelectTerminalChange}

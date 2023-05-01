@@ -5,14 +5,6 @@ import Flight from "./pages/Flight";
 import Error from "./pages/Error";
 import FlightsLayout from "./pages/FlightsLayout";
 
-// Changed from this
-// <Route path={"/arrival"} element={<Arrival />} />
-// <Route path={"/departure"} element={<Departure />} />
-// <Route path={"/arrival/:id"} element={<Flight />} />
-// <Route path={"/departure/:id"} element={<Flight />} />
-
-//To current setup
-
 const App: React.FC = () => {
   return (
     <BrowserRouter>

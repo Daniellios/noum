@@ -10,17 +10,7 @@ import {
   IFlight,
   IFlightBoard,
   IFlightBoardFilters,
-} from "types/data";
-
-// How to improve
-
-// Значительное
-// 1. Если Асинхронные данные, то создать asyncThunk
-// 2. Для взаимодействия между reducerami можно использовать extraReducers
-
-// Побочное
-// 1. По мере добавления новой логики управления состояниями, можно разделить на несколько слайсов, кадый из которых иммет своюб зону ответственности
-// 2. combineReducers для объединения в одно состояние
+} from "../../types/data";
 
 const initialState: IFlightBoard = flightBoard;
 
@@ -80,20 +70,17 @@ export const flightSlice = createSlice({
     filterBySearch: (state) => {
       let filteredFlights = [];
 
+      const { query } = state.filters;
+
       filteredFlights = state.flights.filter(
         (flight) =>
-          flight.city
-            .toLowerCase()
-            .includes(state.filters.query.toLowerCase()) ||
-          flight.company
-            .toLowerCase()
-            .includes(state.filters.query.toLowerCase()) ||
-          flight.flight_number
-            .toLowerCase()
-            .includes(state.filters.query.toLowerCase())
+          flight.city.toLowerCase().includes(query.toLowerCase()) ||
+          flight.company.toLowerCase().includes(query.toLowerCase()) ||
+          flight.flight_number.toLowerCase().includes(query.toLowerCase())
       );
       state.suggested_flights = filteredFlights;
     },
+
     filterById: (state, action: PayloadAction<string>) => {
       state.flights = state.flights.filter(
         (flight) => flight.id === action.payload

@@ -1,5 +1,5 @@
 import useOnClickOutside from "../../hooks/useClickOutside";
-import React, { useRef } from "react";
+import React, { memo, useCallback, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   changeBoardFilters,
@@ -26,51 +26,53 @@ interface SearchSuggestionProps {
   setIsOpen: (value: boolean) => void;
 }
 
-const SearchSuggestion: React.FC<SearchSuggestionProps> = ({ setIsOpen }) => {
-  const suggestBoxRef = useRef(null);
-  const dispatch = useDispatch();
+const SearchSuggestion: React.FC<SearchSuggestionProps> = memo(
+  ({ setIsOpen }) => {
+    const suggestBoxRef = useRef(null);
+    const dispatch = useDispatch();
 
-  const suggestedFlights = useSelector(selectSuggestedFlights);
-  const boardFilters = useSelector(currentBoardFilters);
+    const suggestedFlights = useSelector(selectSuggestedFlights);
+    const boardFilters = useSelector(currentBoardFilters);
 
-  const suggestedValue = (value: string) => {
-    return boardFilters.query.includes(value) || value;
-  };
+    const suggestedValue = (value: string) => {
+      return boardFilters.query.includes(value) || value;
+    };
 
-  const handleClickOutside = () => {
-    setIsOpen(false);
-  };
+    const handleClickOutside = useCallback(() => {
+      setIsOpen(false);
+    }, [setIsOpen]);
 
-  const selectSuggestedValue = (id: string) => {
-    setIsOpen(false);
+    const selectSuggestedValue = (id: string) => {
+      setIsOpen(false);
 
-    dispatch(
-      changeBoardFilters({
-        ...boardFilters,
-      })
+      dispatch(
+        changeBoardFilters({
+          ...boardFilters,
+        })
+      );
+
+      dispatch(filterById(id));
+    };
+
+    useOnClickOutside(suggestBoxRef, handleClickOutside);
+
+    return (
+      <SuggestionBoxWrapper ref={suggestBoxRef}>
+        <SuggestionBox>
+          {suggestedFlights.map((flight) => (
+            <SuggestionBoxRow
+              key={flight.id + "sg"}
+              onClick={() => selectSuggestedValue(flight.id)}
+            >
+              <p>{suggestedValue(flight.city)} - </p>
+              <p>{suggestedValue(flight.flight_number)} - </p>
+              <p> {suggestedValue(flight.company)}</p>
+            </SuggestionBoxRow>
+          ))}
+        </SuggestionBox>
+      </SuggestionBoxWrapper>
     );
-
-    dispatch(filterById(id));
-  };
-
-  useOnClickOutside(suggestBoxRef, handleClickOutside);
-
-  return (
-    <SuggestionBoxWrapper ref={suggestBoxRef}>
-      <SuggestionBox>
-        {suggestedFlights.map((flight) => (
-          <SuggestionBoxRow
-            key={flight.id + "sg"}
-            onClick={() => selectSuggestedValue(flight.id)}
-          >
-            <p>{suggestedValue(flight.city)} - </p>
-            <p>{suggestedValue(flight.flight_number)} - </p>
-            <p> {suggestedValue(flight.company)}</p>
-          </SuggestionBoxRow>
-        ))}
-      </SuggestionBox>
-    </SuggestionBoxWrapper>
-  );
-};
+  }
+);
 
 export default SearchSuggestion;
