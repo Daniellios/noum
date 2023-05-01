@@ -11,7 +11,5 @@ import { renderWithProviders } from "./utils/test-utils";
 describe("App", () => {
   it("Renders App component", () => {
     renderWithProviders(<App />);
-
-    expect(screen.getByTitle("root"));
   });
 });

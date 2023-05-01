@@ -1,9 +1,9 @@
 import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { changeBoardType } from "../../redux/slices/flightsSlice";
-import { Direction } from "types/data";
 import { LinkWrapper, PageLink } from "./NavbarStyles";
 import { useEffect } from "react";
+import { Direction } from "../../types/data";
 
 const Navbar: React.FC = () => {
   const location = useLocation();
