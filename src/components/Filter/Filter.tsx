@@ -16,11 +16,11 @@ import {
   currentBoardFilters,
   applySearchFilters,
 } from "../../redux/slices/flightsSlice";
-import { Terminal } from "types/data";
 import useDebounce from "../../hooks/useDebounce";
 import Select from "../../components/Select/Select";
 import SearchSuggestion from "../../components/SearchSuggestion/SearchSuggestion";
 import SearchButtons from "./SearchButtons";
+import { Terminal } from "../../types/data";
 
 // How to improve
 

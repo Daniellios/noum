@@ -1,21 +1,9 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import { Provider } from "react-redux";
-import { MemoryRouter } from "react-router-dom";
-import { ThemeProvider } from "styled-components";
-import { store } from "../../redux/store";
-import { theme } from "../../styles/globalStyles";
+import { renderWithProvidersAndRouter } from "../../utils/test-utils";
 import Navbar from "./Navbar";
 
 beforeEach(() => {
-  render(
-    <MemoryRouter initialEntries={["/departure"]}>
-      <ThemeProvider theme={theme}>
-        <Provider store={store}>
-          <Navbar />
-        </Provider>
-      </ThemeProvider>
-    </MemoryRouter>
-  );
+  renderWithProvidersAndRouter(<Navbar />);
 });
 
 describe("Navbar component", () => {
@@ -25,7 +13,7 @@ describe("Navbar component", () => {
     expect(departureLink).toHaveAttribute("is_active", "true");
   });
 
-  it("Navigation link changes style", () => {
+  it("Current active link changes", () => {
     const arrivalLink = screen.getByText("Прилет");
 
     expect(arrivalLink).toHaveAttribute("is_active", "false");
