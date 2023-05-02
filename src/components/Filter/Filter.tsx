@@ -22,18 +22,9 @@ import SearchSuggestion from "../../components/SearchSuggestion/SearchSuggestion
 import SearchButtons from "./SearchButtons";
 import { Terminal } from "../../types/data";
 
-// How to improve
-
-// Значительное
-// 1. Создать отдельный компонент со всеми Select'ami и перенести туда все изменения значения Selecto'v
-
 const Filter: React.FC = () => {
   const dispatch = useDispatch();
   const boardFilters = useSelector(currentBoardFilters);
-
-  // const [selectDateValue, setSelectDatevalue] = useState<string>(today);
-  // const [selectTerminalValue, setSelectTerminalValue] =
-  //   useState<Terminal>("ALL");
 
   const [isSearchButtonVisible, setIsSearchButtonVisible] =
     useState<boolean>(false);
@@ -60,8 +51,6 @@ const Filter: React.FC = () => {
     boardFilters.selected_date,
     debounceSearch,
     dispatch,
-    // selectDateValue,
-    // selectTerminalValue,
   ]);
 
   const handleSearchInputChange = (
@@ -79,7 +68,6 @@ const Filter: React.FC = () => {
 
   const handleSelectDateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedDateValue = e.currentTarget.value;
-    // setSelectDatevalue(selectedDateValue);
     dispatch(
       changeBoardFilters({
         ...boardFilters,
@@ -102,7 +90,6 @@ const Filter: React.FC = () => {
     e: React.ChangeEvent<HTMLSelectElement>
   ) => {
     const selectedTerminal = e.currentTarget.value as Terminal;
-    // setSelectTerminalValue(selectedTerminal);
     dispatch(
       changeBoardFilters({
         ...boardFilters,
